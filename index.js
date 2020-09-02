@@ -38,7 +38,8 @@ app.post('/start', (req, res) => {
         }, (i*125)*Math.random()*5)
     }
 })
+const PORT = process.env.PORT || 3000;
 
-app.listen(process.env.port || 1337, () => {
-    console.log("listening on port "+(process.env.port || 1337))
-})
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
