@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-darkmode@0.5.0/dist/darktheme.css"
+    />
+  </head>
+  <body class="darkbg">
+    <script src="https://unpkg.com/bootstrap-darkmode@0.5.0/dist/theme.js">
+      const themeConfig = new ThemeConfig();
+      // place customizations here
+      const themeConfig = new ThemeConfig();
+      // place customizations here
+      themeConfig.initTheme();
+      const darkSwitch = writeDarkSwitch(themeConfig);
+        config.themeChangeHandlers.push(theme => console.log(`using theme: ${theme}`));
+      themeConfig.loadTheme = () => {
+          // custom logic
+          return 'dark';
+      };
+
+      themeConfig.saveTheme = theme => {
+          // custom logic
+          console.log(theme);
+      };
+    </script>
+
+
+
+    <div class="col">
+      <div class="row">
+        <input
+          type="text"
+          class="form-control lighterdark"
+          id="name"
+          placeholder="name"
+          style="width: 400px;margin-bottom: 1em;background-color: rgb(22, 24, 30)"
+          oninput="updateJSON()"
+        />
+      </div>
+      <div class="row">
+        <input
+          type="text"
+          class="form-control lighterdark"
+          id="pin"
+          placeholder="pin"
+          style="width: 400px;background-color: rgb(22, 24, 30)"
+          oninput="updateJSON()"
+        />
+      </div>
+    </div>
+
+    <!--   <table>
+            <td><input id="name" placeholder="name" style="width: 200px;" oninput="updateJSON()"></input></td>
+            <td><input id="profilbild" placeholder="profilbild" style="width: 200px;" oninput="updateJSON()"></input></td>
+            </table> -->
+
+
+
+
+    <!--                 <label for="json">JSON</label> -->
+
+
+    <button id="send" class="form-control lighterdark" onclick="send()">send</button>
+  </body>
+</html>
+<style>
+  @import "~bootstrap-darkmode/darktheme";
+
+  
+
+  body {
+    position: absolute;
+    left: 40%;
+    top: 40%;
+  }
+  .darkbg{
+    background-color:#0F1014;
+    color: #819595;
+  }
+  .lighterdark{
+    background-color:#16181E;
+    color: #819595;
+    border-color: #2A2E3A;
+  }
+  .lighterdark:active{
+    background-color:#383E4F;
+  }
+  .lighterdark:visited{
+    background-color:#383E4F;
+  }
+</style>
+<script>
+	function send() {
+		var pin = document.querySelector('#pin')
+		var _name = document.querySelector("#name")
+
+		var invalid = (isNaN(pin.value) || pin.value === '' || pin.value < 0 || pin.value != Math.round(pin.value)) ? true : _name.value == undefined || _name.value == ""
+		if (invalid) {
+			pin.value = ''
+			alert('invalid pin!')
+		} else {
+			var data = JSON.stringify({
+				"gamePin": pin.value,
+				"name": _name.value,
+			});
+
+			var xhr = new XMLHttpRequest();
+			xhr.withCredentials = true;
+
+			xhr.addEventListener("readystatechange", function () {
+			if (this.readyState === 4) {
+				console.log(this.responseText);
+			}
+			});
+
+			xhr.open("POST", window.location.href+"start");
+			xhr.setRequestHeader("content-type", "application/json");
+			xhr.setRequestHeader("cache-control", "no-cache");
+
+			xhr.send(data);
+			alert('started attack. Bots are joining now!')
+		}
+	}
+
+</script>
