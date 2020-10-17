@@ -33,6 +33,9 @@ app.post('/start', (req, res) => {
     if(!req.body.amount > 1000) return res.send("max 1000 bots")
 
     for (let i=0;i<req.body.amount;i++) {
+        if(i+1>1000)  {
+            return;
+        }
         setTimeout(() => {
             createClient(i+1, req.body.name,req.body.gamePin)
     

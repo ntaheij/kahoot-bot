@@ -119,7 +119,7 @@
     var _amount = document.querySelector("#amount")
 
 		var invalid = (isNaN(pin.value) || pin.value === '' || pin.value < 0 || pin.value != Math.round(pin.value)) ? true : _name.value == undefined || _name.value == ""
-    var invalid = (isNaN(_amount.value) || _amount.value === '' || _amount.value < 0 || _amount.value != Math.round(_amount.value)) ? true : _name.value == undefined || _name.value == ""
+    var invalid2 = (isNaN(_amount.value) || _amount.value === '' || _amount.value < 0 || _amount.value != Math.round(_amount.value)) ? true : _name.value == undefined || _name.value == ""
     
     if (invalid) {
 			pin.value = ''
