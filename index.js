@@ -29,6 +29,9 @@ app.post('/start', (req, res) => {
     if (!req.body.gamePin) return res.send("gamePin not defined")
     if (!req.body.name) return res.send("name not defined")
     if (!req.body.amount) return res.send("amount not defined")
+
+    if(!req.body.amount > 1000) return res.send("max 1000 bots")
+
     for (let i=0;i<req.body.amount;i++) {
         setTimeout(() => {
             createClient(i+1, req.body.name,req.body.gamePin)
