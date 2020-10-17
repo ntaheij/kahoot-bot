@@ -8,12 +8,9 @@ app.use(bodyParser.json());
 function createClient(i, name, gamePin) {
     try {
     var client = new Kahoot;
-    console.log("Joining kahoot...");
-    var b = ""
-    for (index=0;index<name.length;index++) {
-        b += Math.random() < 0.25 ? name.charAt(index).toUpperCase() : name.charAt(index)
-    }
-    client.join(gamePin /* Or any other kahoot game pin */, b+i);
+    console.log("Joining kahoot... " + i);
+    var b = name;
+    client.join(gamePin, b+i);
     client.on("questionStart", question => {
         console.log("A new question has started, answering the first answer.");
         setTimeout(() => {
@@ -31,11 +28,12 @@ app.get("/", (req, res) => {
 app.post('/start', (req, res) => {
     if (!req.body.gamePin) return res.send("gamePin not defined")
     if (!req.body.name) return res.send("name not defined")
-    for (let i=0;i<15;i++) {
+    if (!req.body.amount) return res.send("amount not defined")
+    for (let i=0;i<req.body.amount;i++) {
         setTimeout(() => {
-            createClient(i, req.body.name,req.body.gamePin)
+            createClient(i+1, req.body.name,req.body.gamePin)
     
-        }, (i*125)*Math.random()*5)
+        }, (i*200))
     }
 })
 const PORT = process.env.PORT || 3000;
